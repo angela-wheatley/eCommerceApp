@@ -7,17 +7,17 @@
  
   <main role="main">
       <div class="container">
-          <form class="form-signin" th:action="@{/signin}" method="post">
+          <form class="form-signin" th:object="${user}" th:action="@{/signin}" method="post">
               <h2 class="form-signin-heading" style="text-align: center">Please Sign In/Up</h2>
               <p>
                   <label for="username" class="sr-only">Username</label>
                   <input type="text" id="username" name="username" class="form-control" placeholder="Username">
-<!--                    <label th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="validation-message"></label> -->
+                  <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="validation-message"></p>
               </p>
               <p>
                   <label for="password" class="sr-only">Password</label>
                   <input type="password" id="password" name="password" class="form-control" placeholder="Password">
-<!--                	  <label th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="validation-message"></label> -->
+                  <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="validation-message"></p>
               </p>
               <div style="display: flex; justify-content: space-between">
                   <button class="btn btn-lg btn-primary" name="submit" value="in" type="submit" style="flex-grow: 0.95">Sign In</button>

@@ -21,22 +21,26 @@ class AuthenticationController
     private UserService userService;
     
     @GetMapping("/signin")
-    public String login()
+    public String login(User user)
     {
         return "signin";
     }
     
     @PostMapping("/signin")
-    public String signup(@Valid User user, @RequestParam String submit, BindingResult bindingResult, HttpServletRequest request) throws ServletException
+    public String signup(@Valid User user, BindingResult bindingResult, @RequestParam String submit, HttpServletRequest request) throws ServletException
     {
         String password = user.getPassword();
         if(submit.equals("up"))
         {
             if(userService.testPassword(password) == false)
             {
-                bindingResult.rejectValue("password", "error.password", "Password must contain at least 1 capital letter and 1 lowercase letter");
-                bindingResult.rejectValue("password", "error.password", "Password must contain 1 number");
-                bindingResult.rejectValue("password", "error.password", "Password must contain 1 special character");
+                bindingResult.rejectValue("password", "error.user", 
+                        "Password must be longer than 8 characters, contain at least 1 capital letter and 1 lowercase letter, "
+                        + "1 number and 1 special character.");
+                
+            }
+            if(bindingResult.hasErrors())
+            {
                 return "signin";
             }
             if(userService.findByUsername(user.getUsername()) == null)

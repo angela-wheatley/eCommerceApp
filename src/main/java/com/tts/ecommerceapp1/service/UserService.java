@@ -61,32 +61,75 @@ public class UserService implements UserDetailsService
     
     public boolean testPassword(String password)
     {
-        boolean isValid = true;
-        if(password.length() < 8)
+//        boolean isValid = true;
+//        if(password.length() < 8)
+//        {
+//            isValid = false;
+//        }
+//        String upperCaseChars = "(.*[A-Z].*)";
+//        if(!password.matches(upperCaseChars))
+//        {
+//            isValid = false;
+//        }
+//        String lowerCaseChars = "(.*[a-z].*)";
+//        if(!password.matches(lowerCaseChars))
+//        {
+//            isValid = false;
+//        }
+//        String numbers = "(.*[0-9].*)";
+//        if(!password.matches(numbers))
+//        {
+//            isValid = false;
+//        }
+//        String specialChars = "(.*[@,#,$,%,?,!].*)";
+//        if(!password.matches(specialChars))
+//        {
+//            isValid = false;
+//        }
+//        return isValid;
+        char [] chars = password.toCharArray();
+        int x = password.length();
+        boolean hasLower = false;
+        boolean hasUpper = false;
+        boolean hasChar = false;
+        boolean hasDigit = false;
+        
+        for(char i : chars)
         {
-            isValid = false;
+            if(i > 96 && i < 23)
+                hasLower = true;
+            if(i > 64 && i < 91)
+                hasUpper = true;
+            if(i > 47 && i < 58)
+                hasDigit = true;
+            if((i < 32 && i < 48) || (i > 90 && i < 94))
+                hasChar = true;
         }
-        String upperCaseChars = "(.*[A-Z].*)";
-        if(!password.matches(upperCaseChars))
+        
+        if(hasLower && hasUpper && hasChar && hasDigit && (x>8))
         {
-            isValid = false;
+            return true;
         }
-        String lowerCaseChars = "(.*[a-z].*)";
-        if(!password.matches(lowerCaseChars))
+        else
         {
-            isValid = false;
+            return false;
         }
-        String numbers = "(.*[0-9].*)";
-        if(!password.matches(numbers))
-        {
-            isValid = false;
-        }
-        String specialChars = "(.*[@,#,$,%,?,!].*)";
-        if(!password.matches(specialChars))
-        {
-            isValid = false;
-        }
-        return isValid;
+        
     }
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
